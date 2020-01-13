@@ -5,31 +5,31 @@ def exec():
     Followings should be filled by the practitioner according to the paper and readme.txt file
     '''
     
-    file_name = "SoilWorld"
-    project_name = 'SoilWorld'
+    file_name = "SoilWorldScaled"
+    project_name = 'SoilWorldScaled'
     
     myRegressor = Regressor(file_name, name = project_name, should_shuffle=True, split_size = 0.4)
     
     myRegressor.setLayers([15, 10, 5])
     myRegressor.setLossFunction('MSE')
-    myRegressor.setEpochs(50)
+    myRegressor.setEpochs(2000)
     
-    myRegressor.setInputActivationFunction('sigmoid')
+    myRegressor.setInputActivationFunction('tanh')
     myRegressor.setHiddenActivationFunction('relu')
     myRegressor.setFinalActivationFunction('linear')
     
     myRegressor.setOptimizer('Adam')
     
-    myRegressor.shouldPlot(True)
+    myRegressor.shouldPlot(False)
     myRegressor.shouldEarlyStop(True)
     
     myRegressor.setBatchSize(128)
     myRegressor.setPatience(50)
-    myRegressor.setMinDelta(1)
-    myRegressor.setReg(0.000002, 'l1')
+    myRegressor.setMinDelta(2.5)
+    myRegressor.setReg(0.00001, 'l1')
     
 #     myRegressor.runLearningCurve(steps=10)
-    myRegressor.runRegularizationParameterAnalysis(first_guess = 0.001, final_value = 0.02, increment=3)
+    # myRegressor.runRegularizationParameterAnalysis(first_guess = 0.001, final_value = 0.02, increment=3)
 
     myRegressor.fitModel(drop = 1)
     myRegressor.loadModel()

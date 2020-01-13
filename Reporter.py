@@ -41,7 +41,7 @@ class Report(object):
         report.set_index('Ind', inplace=True)
         report.to_csv(self.directory + "/"+ f'{label}.csv')
         
-        report_str = f"{label}, R2= {R2(y_true, y_pred):.2f}, MSE={mean_squared_error(y_true, y_pred):.2f}, MAE={mean_absolute_error(y_true, y_pred):.2f}, MAPE={MAPE(y_true, list(y_pred)):.2f}%"
+        report_str = f"{label}, CorCoef= {CorCoef(y_true, y_pred):.2f}, R2= {R2(y_true, y_pred):.2f}, RMSE={mean_squared_error(y_true, y_pred)**0.5:.2f}, MSE={mean_squared_error(y_true, y_pred):.2f}, MAE={mean_absolute_error(y_true, y_pred):.2f}, MAPE={MAPE(y_true, list(y_pred)):.2f}%"
         self.log.info(report_str)
         print(report_str)
     
@@ -212,6 +212,9 @@ def MAPE(y_true, y_pred):
         return 0
 
 def R2(y_true, y_pred):
+    return np.corrcoef(y_true, y_pred)[0][1]**2
+
+def CorCoef(y_true, y_pred):
     return np.corrcoef(y_true, y_pred)[0][1]
     
 
